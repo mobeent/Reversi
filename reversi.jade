@@ -1,0 +1,75 @@
+doctype html
+html
+	head
+		script(src='/socket.io/socket.io.js')
+		script(src='//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js')
+		script(src='reversiclient.js')
+		style.
+			body { margin: 50px; margin-left:400px}
+			button { height: 70px; width: 70px; font-size: 20pt }
+			#passbutton {margin:20px; margin-left:200px; height: 50px; width: 150px; font-size: 15pt}
+		// script.
+		// 	const socketio = io();
+		// 	var user = 0;
+		// 	var turn = 1;
+		// 	socketio.on('initialconnection', users => {
+		// 		user = users
+		// 	})
+		// 	socketio.on('to_client', data => {
+		// 		move2(data.id, data.user);
+		// 	})
+		// 	function move2(value, username) {
+		// 		if (username != user) {
+		// 			if (turn == 2) {
+		// 				turn = 1;
+		// 			} else {
+		// 				turn = 2;
+		// 			}
+		// 			document.getElementById("m" + value).innerHTML = "P" + username.toString();
+		// 		}
+		// 	}
+		// 	function validmove (value) {
+		// 		x = value[0]
+		// 		y = value[1]
+		// 		for all directions (S SW W NW N NE E SE)
+		// 			keep on going until P+user found or until end of board reached
+		// 			return true if found for even one
+		// 	}
+		// 	function move(value) {
+		// 		if (document.getElementById("m" + value).innerHTML == "") {
+		// 			if (turn == user) {
+		// 				document.getElementById("m" + value).innerHTML = "P" + user.toString();
+		// 				if (turn == 2) {
+		// 					turn = 1;
+		// 				} else {
+		// 					turn = 2;
+		// 				}
+		// 				socketio.emit('to_server', {'id':value, 'user':user});
+		// 			}
+		// 		}
+		// 	}
+
+	body
+		p(id='Turn')
+		p(id='numberofmoves')
+		table
+			each val in ["1", "2", "3", "4", "5", "6", "7", "8"]
+				tr
+					each val2 in ["1", "2", "3", "4", "5", "6", "7", "8"]
+						td
+							if val=="4" && val2=="4"
+								button(id="m"+val+val2)
+									| P1
+							else if val=="4" && val2=="5"
+								button(id="m"+val+val2)
+									| P2
+							else if val=="5" && val2=="4"
+								button(id="m"+val+val2)
+									| P2
+							else if val=="5" && val2=="5"
+								button(id="m"+val+val2)
+									| P1
+							else
+								button(id="m"+val+val2, onclick='move(#{val+val2})')
+
+		button(id='passbutton') PASS TURN?
